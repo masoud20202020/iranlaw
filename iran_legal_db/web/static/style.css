@@ -1,0 +1,82 @@
+/* RTL Legal Database UI */
+* { box-sizing: border-box; }
+body {
+    font-family: Tahoma, "B Nazanin", "IRANSans", "Vazirmatn", sans-serif;
+    margin: 0; padding: 0;
+    background: #f4f6fb; color: #1d2433; direction: rtl; text-align: right;
+}
+a { color: #1f4ea3; text-decoration: none; }
+a:hover { text-decoration: underline; }
+header {
+    background: linear-gradient(135deg, #1a3a7c, #2e63c4);
+    color: #fff; padding: 18px 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+header h1 { margin: 0; font-size: 22px; }
+header h1 .sub { opacity: .8; font-size: 14px; margin-right: 8px; font-weight: normal; }
+nav { background: #fff; padding: 10px 32px; border-bottom: 1px solid #e1e6f0; }
+nav a { margin-left: 18px; font-size: 14px; color: #2e63c4; }
+.container { max-width: 1100px; margin: 24px auto; padding: 0 24px; }
+.card {
+    background: #fff; border-radius: 10px; padding: 20px 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-bottom: 20px;
+}
+.card h2 { margin-top: 0; color: #1a3a7c; border-right: 4px solid #2e63c4; padding-right: 10px; font-size: 18px;}
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+.stat {
+    background: linear-gradient(135deg, #e8efff, #f5f8ff);
+    border-radius: 8px; padding: 14px; text-align: center;
+}
+.stat .num { font-size: 28px; font-weight: bold; color: #1a3a7c; }
+.stat .lbl { font-size: 13px; color: #556; margin-top: 4px; }
+
+form.search { display: flex; gap: 8px; margin: 12px 0 18px; }
+form.search input[type=text] {
+    flex: 1; padding: 12px 14px; border: 1px solid #c7d0e0; border-radius: 8px;
+    font-size: 15px; font-family: inherit;
+}
+form.search button {
+    padding: 0 24px; border: 0; background: #1a3a7c; color: #fff;
+    border-radius: 8px; cursor: pointer; font-size: 15px; font-family: inherit;
+}
+form.search button:hover { background: #2e63c4; }
+
+.result { padding: 12px 14px; border-bottom: 1px solid #eef1f7; }
+.result:last-child { border-bottom: 0; }
+.result .ttl { font-weight: bold; color: #1a3a7c; }
+.result .meta { font-size: 12px; color: #667; margin: 4px 0; }
+.result .snip { font-size: 14px; color: #333; line-height: 1.7; }
+mark { background: #fff2a8; padding: 1px 3px; border-radius: 3px; }
+
+ul.docs { list-style: none; padding: 0; margin: 0; }
+ul.docs li {
+    padding: 12px 14px; border-bottom: 1px solid #eef1f7;
+    display: flex; justify-content: space-between; align-items: center;
+}
+ul.docs li:hover { background: #f8faff; }
+.badge {
+    display: inline-block; padding: 2px 9px; border-radius: 12px;
+    font-size: 12px; background: #e8efff; color: #1a3a7c; margin-left: 6px;
+}
+.badge.status { background: #e3f7e9; color: #1f7c42; }
+.badge.type { background: #fff2e0; color: #a35b0d; }
+
+.article {
+    padding: 14px 0; border-bottom: 1px dashed #dbe2f1;
+}
+.article:last-child { border-bottom: 0; }
+.article .no {
+    display: inline-block; background: #1a3a7c; color: #fff;
+    padding: 2px 10px; border-radius: 6px; font-size: 13px;
+    margin-left: 8px; font-weight: bold;
+}
+.article .txt { line-height: 2; font-size: 15px; margin-top: 6px; text-align: justify; }
+
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: #445; margin: 8px 0 12px; }
+.meta-row b { color: #1a3a7c; }
+.notes { background: #f4f8ff; border-right: 3px solid #2e63c4; padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 14px; line-height: 1.9; }
+
+footer { text-align: center; color: #889; padding: 30px; font-size: 13px; }
+.hist { background: #fffaf0; border: 1px solid #ffe7b3; border-radius: 8px; padding: 10px 14px; margin-top: 8px; }
+.hist .old { opacity: .8; }
+.hist .cur { font-weight: bold; color: #1f7c42; }

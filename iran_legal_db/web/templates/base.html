@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}بانک اطلاعاتی حقوقی ایران{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>⚖️ بانک اطلاعاتی حقوقی ایران <span class="sub">قوانین، اصلاحیه‌ها، آیین‌نامه‌ها، آرای وحدت رویه، نظریات مشورتی، بخشنامه‌ها، آرای دیوان عدالت اداری</span></h1>
+</header>
+<nav>
+    <a href="{{ url_for('index') }}">🏠 صفحه اصلی</a>
+    <a href="{{ url_for('types') }}">📚 انواع اسناد</a>
+    <a href="{{ url_for('by_type', code='law') }}">📖 قوانین</a>
+    <a href="{{ url_for('by_type', code='regulation') }}">📋 آیین‌نامه‌ها</a>
+    <a href="{{ url_for('by_type', code='unified_ruling') }}">⚖️ آرای وحدت رویه</a>
+    <a href="{{ url_for('by_type', code='advisory_opinion') }}">💡 نظریات مشورتی</a>
+    <a href="{{ url_for('by_type', code='circular') }}">📝 بخشنامه‌ها</a>
+    <a href="{{ url_for('by_type', code='divan_ruling') }}">🏛️ آرای دیوان عدالت اداری</a>
+</nav>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+<footer>
+    بانک اطلاعاتی حقوقی ایران • نسخه توسعه‌پذیر • قابل گسترش با منابع رسمی (روزنامه رسمی، سامانه ملی قوانین، دیوان عالی، دیوان عدالت اداری)
+</footer>
+</body>
+</html>

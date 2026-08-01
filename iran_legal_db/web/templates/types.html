@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>📚 انواع اسناد حقوقی</h2>
+    <ul class="docs">
+        {% for t in types %}
+        <li>
+            <span>
+                <b>{{ t['name_fa'] }}</b>
+                {% if t['description'] %}<span style="color:#889; font-size:13px; margin-right:8px;">{{ t['description'] }}</span>{% endif %}
+            </span>
+            <span><a class="badge type" href="{{ url_for('by_type', code=t['code']) }}">{{ t['c'] }} سند →</a></span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

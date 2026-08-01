@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+    <h2>🔍 جست‌وجوی تمام‌متن در اسناد و مواد</h2>
+    <form class="search" method="get" action="{{ url_for('index') }}">
+        <input type="text" name="q" value="{{ q }}" placeholder="واژه، ماده، یا موضوع را وارد کنید (مثلاً: مهریه، قصاص، اکراه، برائت، چک، شفعه، حضانت)…" autofocus>
+        <button type="submit">جست‌وجو</button>
+    </form>
+    {% if q %}
+        <p style="color:#667;">نتایج جست‌وجو برای «<b>{{ q }}</b>»</p>
+        {% if results %}
+            {% for r in results %}
+            <div class="result">
+                <div class="ttl"><a href="{{ url_for('article', aid=r['aid']) }}">{{ r['short_title'] }} – {{ r['title'] }}، {{ r['article_no'] }}</a></div>
+                <div class="snip">{{ r['snip']|safe }}</div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>نتیجه‌ای یافت نشد.</p>
+        {% endif %}
+    {% endif %}
+</div>
+
+<div class="card">
+    <h2>📊 آمار کلی</h2>
+    <div class="stats">
+        <div class="stat"><div class="num">{{ stats.docs }}</div><div class="lbl">سند</div></div>
+        <div class="stat"><div class="num">{{ stats.articles }}</div><div class="lbl">ماده/مفاد جاری</div></div>
+        <div class="stat"><div class="num">{{ stats.history }}</div><div class="lbl">نسخه تاریخی</div></div>
+        <div class="stat"><div class="num">{{ stats.relations }}</div><div class="lbl">ارتباط بین اسناد</div></div>
+        <div class="stat"><div class="num">{{ stats.types }}</div><div class="lbl">نوع سند</div></div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>📚 دسته‌بندی اسناد</h2>
+    <ul class="docs">
+        {% for t in types %}
+        <li>
+            <span><a href="{{ url_for('by_type', code=t['code']) }}">{{ t['name_fa'] }}</a></span>
+            <span class="badge type">{{ t['c'] }} سند</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="card">
+    <h2>🆕 آخرین اسناد اضافه‌شده</h2>
+    <ul class="docs">
+        {% for r in recent %}
+        <li>
+            <span>
+                <span class="badge type">{{ r['type'] }}</span>
+                <a href="{{ url_for('doc', doc_id=r['id']) }}">{{ r['title'] }}</a>
+                {% if r['short_title'] %}<span style="color:#889; font-size:12px;">({{ r['short_title'] }})</span>{% endif %}
+            </span>
+            <span class="badge status">{{ r['status'] }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

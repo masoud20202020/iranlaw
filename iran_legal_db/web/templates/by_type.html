@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ dt['name_fa'] }} – بانک حقوقی ایران{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>{{ dt['name_fa'] }}</h2>
+    {% if dt['description'] %}<div class="notes">{{ dt['description'] }}</div>{% endif %}
+    <p>تعداد: <b>{{ docs|length }}</b> سند</p>
+    <ul class="docs">
+        {% for d in docs %}
+        <li>
+            <span>
+                <a href="{{ url_for('doc', doc_id=d['id']) }}">{{ d['title'] }}</a>
+                {% if d['short_title'] %}<span style="color:#889; font-size:12px;">({{ d['short_title'] }})</span>{% endif %}
+                {% if d['authority'] %}<span style="color:#889; font-size:12px; margin-right:8px;">– {{ d['authority'] }}</span>{% endif %}
+            </span>
+            <span>
+                {% if d['ratification_date'] %}<span style="color:#667; font-size:12px;">{{ d['ratification_date'] }}</span>{% endif %}
+                <span class="badge status">{{ d['status'] }}</span>
+            </span>
+        </li>
+        {% else %}
+        <li style="color:#889;">هنوز سندی در این دسته بارگذاری نشده است.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

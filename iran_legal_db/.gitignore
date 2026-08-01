@@ -1,0 +1,17 @@
+# Python runtime and local editor files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+.env
+.env.*
+*.log
+.DS_Store
+
+# Never commit credentials
+.netrc
+.git-credentials
+credentials.json
+secrets.*

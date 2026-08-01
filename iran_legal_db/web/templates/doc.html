@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}{{ d['title'] }} – بانک حقوقی ایران{% endblock %}
+{% block content %}
+
+<div class="card">
+    <h2>{{ d['title'] }}
+        {% if d['short_title'] %}<span style="color:#889; font-size:14px; font-weight:normal;">({{ d['short_title'] }})</span>{% endif %}
+    </h2>
+
+    <div class="meta-row">
+        <span><b>نوع:</b> <span class="badge type">{{ d['type'] }}</span></span>
+        <span><b>وضعیت:</b> <span class="badge status">{{ d['status'] }}</span></span>
+        {% if d['authority'] %}<span><b>مرجع صادرکننده:</b> {{ d['authority'] }}</span>{% endif %}
+        {% if d['ratification_date'] %}<span><b>تاریخ تصویب:</b> {{ d['ratification_date'] }}</span>{% endif %}
+        {% if d['effective_date'] %}<span><b>تاریخ اجرا:</b> {{ d['effective_date'] }}</span>{% endif %}
+        {% if d['reference_code'] %}<span><b>کد:</b> {{ d['reference_code'] }}</span>{% endif %}
+    </div>
+
+    {% if tags %}
+    <div style="margin-bottom:10px;">
+        {% for t in tags %}<span class="badge">#{{ t['name_fa'] }}</span>{% endfor %}
+    </div>
+    {% endif %}
+
+    {% if d['notes'] %}<div class="notes">{{ d['notes'] }}</div>{% endif %}
+
+    {% if article_stats and article_stats['versions'] %}
+    <div class="meta-row" style="margin-top:12px;">
+        <span><b>شماره مواد/مفاد:</b> {{ article_stats['article_numbers'] }}</span>
+        <span><b>نسخه جاری:</b> {{ article_stats['current_count'] }}</span>
+        <span><b>نسخه تاریخی:</b> {{ article_stats['historical_count'] }}</span>
+        <span><b>کل نسخه‌ها:</b> {{ article_stats['versions'] }}</span>
+    </div>
+    <div style="margin-top:8px;">
+        <a class="badge {{ 'status' if view_mode == 'current' else '' }}" href="{{ url_for('doc', doc_id=d['id'], view='current') }}">متن جاری</a>
+        <a class="badge {{ 'status' if view_mode == 'historical' else '' }}" href="{{ url_for('doc', doc_id=d['id'], view='historical') }}">فقط نسخه‌های تاریخی</a>
+        <a class="badge {{ 'status' if view_mode == 'all' else '' }}" href="{{ url_for('doc', doc_id=d['id'], view='all') }}">همه نسخه‌ها</a>
+    </div>
+    {% endif %}
+</div>
+
+{% if rels_from %}
+<div class="card">
+    <h2>🔗 ارتباطات با سایر اسناد</h2>
+    <ul class="docs">
+        {% for r in rels_from %}
+        <li>
+            <span>
+                <span class="badge">{{ r['relation_type'] }}</span>
+                {% if r['did'] %}
+                    <a href="{{ url_for('doc', doc_id=r['did']) }}">{{ r['short_title'] }} – {{ r['title'] }}</a>
+                {% else %}
+                    (نامشخص)
+                {% endif %}
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% if rels_to %}
+<div class="card">
+    <h2>🔗 اسناد اثرگذار بر این سند</h2>
+    <ul class="docs">
+        {% for r in rels_to %}
+        <li>
+            <span>
+                <span class="badge">{{ r['relation_type'] }}</span>
+                <a href="{{ url_for('doc', doc_id=r['did']) }}">{{ r['short_title'] }} – {{ r['title'] }}</a>
+                {% if r['to_art'] %}<span style="color:#667;">← ماده {{ r['to_art'] }}</span>{% endif %}
+                {% if r['description'] %}<span style="color:#889; font-size:12px; margin-right:8px;">{{ r['description'] }}</span>{% endif %}
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>📜 مواد / مفاد ({{ articles|length }}) — {{ 'متن جاری' if view_mode == 'current' else ('نسخه‌های تاریخی' if view_mode == 'historical' else 'همه نسخه‌ها') }}</h2>
+    {% for a in articles %}
+    <div class="article" id="art-{{ a['id'] }}">
+        <a class="no" href="{{ url_for('article', aid=a['id']) }}">{{ a['article_no'] }}</a>
+        <span class="txt">
+            {% if view_mode != 'current' %}
+                <span class="badge {{ 'status' if a['is_current'] else '' }}">نسخه {{ a['version_no'] }} — {{ 'جاری' if a['is_current'] else 'تاریخی' }}</span>
+            {% endif %}
+            {{ a['text'] }}
+        </span>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}{{ art['short_title'] }} {{ art['article_no'] }} – بانک حقوقی ایران{% endblock %}
+{% block content %}
+
+<div class="card">
+    <h2>
+        <a href="{{ url_for('doc', doc_id=art['doc_id']) }}" style="color:#2e63c4;">{{ art['short_title'] }} – {{ art['doc_title'] }}</a>
+    </h2>
+    <div class="meta-row">
+        <span class="no">{{ art['article_no'] }}</span>
+        <span><b>نسخه:</b> {{ art['version_no'] }}</span>
+        <span>{% if art['is_current'] %}<span class="badge status">نسخه فعلی</span>{% else %}<span class="badge">نسخه تاریخی</span>{% endif %}</span>
+        {% if art['effective_date'] %}<span><b>از تاریخ:</b> {{ art['effective_date'] }}</span>{% endif %}
+        {% if art['expiry_date'] %}<span><b>تا تاریخ:</b> {{ art['expiry_date'] }}</span>{% endif %}
+    </div>
+    <div class="article">
+        <span class="txt" style="font-size:17px;">{{ art['text'] }}</span>
+    </div>
+    {% if art['source_note'] %}<div class="notes">{{ art['source_note'] }}</div>{% endif %}
+    {% if art['notes'] %}<p style="color:#667; font-size:13px;">{{ art['notes'] }}</p>{% endif %}
+</div>
+
+{% if hist and hist|length > 1 %}
+<div class="card">
+    <h2>📜 تاریخچه تغییرات ماده</h2>
+    {% for v in hist %}
+    <div class="hist {{ 'cur' if v['is_current'] else 'old' }}">
+        <b>نسخه {{ v['version_no'] }}</b>
+        {% if v['is_current'] %}<span class="badge status">فعلی</span>{% endif %}
+        {% if v['effective_date'] %}<span style="font-size:13px; color:#667;">از {{ v['effective_date'] }}</span>{% endif %}
+        {% if v['expiry_date'] %}<span style="font-size:13px; color:#a33;">تا {{ v['expiry_date'] }}</span>{% endif %}
+        <p style="margin:6px 0 0; line-height:1.9;">{{ v['text'] }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if rels %}
+<div class="card">
+    <h2>🔗 ارتباطات</h2>
+    <ul class="docs">
+        {% for r in rels %}
+        <li>
+            <span>
+                <span class="badge">{{ r['relation_type'] }}</span>
+                {% if r['did'] %}
+                    <a href="{{ url_for('doc', doc_id=r['did']) }}">{{ r['short_title'] }} – {{ r['title'] }}</a>
+                {% endif %}
+                {% if r['description'] %}<span style="color:#889; font-size:12px; margin-right:8px;">{{ r['description'] }}</span>{% endif %}
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}
