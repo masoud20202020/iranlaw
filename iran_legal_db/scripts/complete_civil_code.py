@@ -113,8 +113,13 @@ def main():
     # رابطه با قانون حمایت خانواده
     fam = conn.execute("SELECT id FROM documents WHERE reference_code='QHKH-1391'").fetchone()
     if fam:
-        add_relation(conn, fam["id"], "amends", civil_id,
-                     description="اصلاح و تکمیل مواد مربوط به نکاح، طلاق، حضانت و نفقه.")
+        existing_rel = conn.execute(
+            "SELECT id FROM relations WHERE from_document_id=? AND to_document_id=? LIMIT 1",
+            (fam["id"], civil_id),
+        ).fetchone()
+        if not existing_rel:
+            add_relation(conn, fam["id"], "amends", civil_id,
+                         description="اصلاح و تکمیل مواد مربوط به نکاح، طلاق، حضانت و نفقه.")
 
     conn.commit()
 
