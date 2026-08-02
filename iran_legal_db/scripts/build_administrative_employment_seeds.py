@@ -8,6 +8,9 @@ D2A=str.maketrans('۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩','012345678901234567
 A2F=str.maketrans('0123456789','۰۱۲۳۴۵۶۷۸۹')
 
 def clean(s):
+ # Some crawled pages contain empty Markdown footnote links like [](url) or *[](url).
+ # Remove those before preserving labelled Markdown links.
+ s=re.sub(r'!?\[\]\([^)]+\)','',s)
  s=re.sub(r'!\[[^]]*\]\([^)]+\)','',s); s=re.sub(r'\[([^]]+)\]\([^)]+\)',r'\1',s)
  s=s.replace('**','').replace('__','').replace('\ufeff','').replace('\u200e','').replace('\u200f','')
  s=s.replace('ي','ی').replace('ى','ی').replace('ك','ک').replace('‌','\u200c')
@@ -29,7 +32,7 @@ def parse(fn,count, occurrence=0, start=0):
   if len(hits)<=occurrence: raise ValueError(f'{fn}: missing {n}; got {[x[0] for x in hs]}')
   j,b=hits[occurrence]; e=hs[j+1][1] if j+1<len(hs) else len(lines)
   t=clean('\n'.join(lines[b:e])); t=re.sub(r'^ماده\s*[۰-۹]+\s*(?:\([^)]*\))?\s*[-ـ.،:]?\s*','',t,1)
-  for marker in ('منبع:', 'منبع :', 'مطالب مرتبط', 'دیدگاهتان را', 'تمامی حقوق مادی', 'برچسب ها:', 'برچسب‌ها:'):
+  for marker in ('منبع:', 'منبع :', 'مطالب مرتبط', 'نوشته های مشابه', 'نوشته‌های مشابه', 'دیدگاهتان را', 'تمامی حقوق مادی', 'برچسب ها:', 'برچسب‌ها:'):
    if marker in t: t=t.split(marker,1)[0].strip()
   if not t: raise ValueError(f'{fn}: empty {n}')
   ans.append((str(n),t))

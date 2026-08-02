@@ -20,7 +20,9 @@ def load(conn, *, title, short_title, ref_code, authority, rat, eff, articles, t
         doc_id = existing["id"]
         conn.execute("DELETE FROM articles_fts WHERE document_id=?", (doc_id,))
         conn.execute("DELETE FROM articles WHERE document_id=?", (doc_id,))
-        conn.execute("DELETE FROM relations WHERE from_document_id=? OR to_document_id=?", (doc_id, doc_id))
+        # Only outgoing relations are owned by this loader. Incoming document-level
+        # relations from thematic packages must survive reloading the procedure texts.
+        conn.execute("DELETE FROM relations WHERE from_document_id=?", (doc_id,))
         conn.execute("DELETE FROM document_tags WHERE document_id=?", (doc_id,))
         conn.execute("DELETE FROM document_topics WHERE document_id=?", (doc_id,))
     else:
