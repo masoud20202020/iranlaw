@@ -32,8 +32,8 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 
 from schema import DB_PATH, get_connection  # noqa: E402
 
-LOCAL_DATE_GREGORIAN = "2026-08-01"
-LOCAL_DATE_JALALI = "۱۴۰۵/۰۵/۱۰"
+LOCAL_DATE_GREGORIAN = "2026-08-04"
+LOCAL_DATE_JALALI = "۱۴۰۵/۰۵/۱۳"
 
 PERSIAN_DIGITS = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
 ALLOWED_RELATION_TYPES = {
