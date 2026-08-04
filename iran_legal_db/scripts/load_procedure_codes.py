@@ -8,6 +8,10 @@ from schema import get_connection
 from importer import get_or_create_document, add_article, add_relation, add_tag, link_document_tag, link_document_topic
 from civil_procedure import CIVIL_PROCEDURE_ALL
 from criminal_procedure import CRIMINAL_PROCEDURE_ALL
+try:
+    from criminal_procedure_user_source import SOURCE_NOTE_BY_ARTICLE
+except ImportError:  # pragma: no cover - legacy seed-only mode
+    SOURCE_NOTE_BY_ARTICLE = {}
 
 
 def to_persian_num(n) -> str:
@@ -44,7 +48,7 @@ def load(conn, *, title, short_title, ref_code, authority, rat, eff, articles, t
                     article_key=f"{ref_code}:{no}",
                     version_no=1, is_current=1,
                     effective_date=eff,
-                    source_note=note)
+                    source_note=SOURCE_NOTE_BY_ARTICLE.get(no, note))
         cnt += 1
     # relations
     for rel_type, target_code, desc in rel_docs:
@@ -89,7 +93,7 @@ def main():
         articles=CRIMINAL_PROCEDURE_ALL,
         tags=["آیین دادرسی", "کیفری", "قانون مادر"],
         topics=["آیین دادرسی کیفری"],
-        note="مصوب ۱۳۹۲/۱۲/۴، لازم‌الاجرا از ۱۳۹۴/۰۴/۰۱؛ آیین کشف جرم، تعقیب، تحقیقات مقدماتی، محاکمه، تجدیدنظر، فرجام، اجرای احکام کیفری، حقوق متهم و بزه‌دیده، ضابطان، بازپرس، دادسرا، دادگاه‌های بدوی، تجدیدنظر، دیوان عالی، و اجرای احکام.",
+        note="مصوب ۱۳۹۲/۱۲/۴، لازم‌الاجرا از ۱۳۹۴/۰۴/۰۱؛ مواد ۱ تا ۳۱۷ با متن بخش‌های ارسالی کاربر از صفحات نوین‌لاو (منابع در source_note ماده‌ها) تنقیح اولیه شده‌اند؛ مواد ۳۱۸ تا ۵۷۰ همچنان از بذر پایه پروژه هستند و برای استناد رسمی باید با روزنامه رسمی مقابله شوند.",
         rel_docs=[
             ("cites", "QA-1358", "مبتنی بر اصول ۳۲ تا ۳۹ قانون اساسی (برائت، منع شکنجه، حق وکیل، علنی بودن محاکمه)"),
             ("implements", "QMA-1392", "آیین شکلی رسیدگی به جرایم مقرر در قانون مجازات اسلامی"),
