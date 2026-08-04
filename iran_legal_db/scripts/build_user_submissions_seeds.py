@@ -327,6 +327,56 @@ DOCS = [
         "notes": "متن ۱۲ ماده‌ای ارسالی کاربر از صفحه ۴۳۵؛ مصوب ۱۳۸۴/۱۰/۱۴. برای آخرین اصلاحات و ارتباط با قوانین شهرداری، دهیاری و تقسیمات کشوری با منبع رسمی مقابله شود.",
         "tags": ("محدوده شهر", "حریم شهر", "روستا", "شهرک", "شهرداری", "دهیاری"),
     },
+    {
+        "ref": "AIGTE-1373-817",
+        "title": "آیین‌نامه اجرایی قانون تعزیرات حکومتی",
+        "short": "آیین‌نامه اجرایی سازمان تعزیرات حکومتی",
+        "source_file": "user_submission_tehranat_bylaw_817.md",
+        "date": "1994", "authority": "هیئت وزیران", "type_code": "regulation", "status_code": "amended", "parser": "article",
+        "topic": "حقوق کیفری",
+        "notes": "متن ۳۶ ماده‌ای ارسالی کاربر از صفحه ۸۱۷؛ مصوب ۱۳۷۳/۰۱/۰۸ با اصلاحات و الحاقات سال ۱۴۰۳، از جمله اصلاحات ۱۴۰۳/۱۲/۱۴. برای استناد رسمی با تصویب‌نامه‌های اصلاحی مقابله شود.",
+        "tags": ("تعزیرات حکومتی", "سازمان تعزیرات", "تخلفات اقتصادی", "رسیدگی اداری", "قاچاق کالا و ارز"),
+    },
+    {
+        "ref": "QGTE-1367-816",
+        "title": "قانون تعزیرات حکومتی",
+        "short": "قانون تعزیرات حکومتی",
+        "source_files": ("user_submission_government_penalties_816_part1.md", "user_submission_government_penalties_816_part2.md"),
+        "date": "1989", "authority": "مجمع تشخیص مصلحت نظام", "type_code": "law", "status_code": "amended", "parser": "article",
+        "topic": "حقوق کیفری",
+        "notes": "متن ۵۶ ماده‌ای ارسالی کاربر از صفحه ۸۱۶؛ مصوب ۱۳۶۷/۱۲/۲۳ با اصلاحات و الحاقات، از جمله اصلاحات ۱۳۹۰ و تعدیلات ۱۴۰۳ در متن منبع. برای وضعیت جاری با مصوبات رسمی مقابله شود.",
+        "tags": ("تعزیرات حکومتی", "گرانفروشی", "احتکار", "تخلفات صنفی", "تخلفات دولتی"),
+    },
+    {
+        "ref": "QAIR-1368-553",
+        "title": "قانون حفاظت در برابر اشعه",
+        "short": "قانون حفاظت پرتویی",
+        "source_file": "user_submission_radiation_protection_553.md",
+        "date": "1989", "authority": "مجلس شورای اسلامی", "type_code": "law", "status_code": "amended", "parser": "article",
+        "topic": "حقوق سلامت و محیط زیست",
+        "notes": "متن ۲۳ ماده‌ای ارسالی کاربر از صفحه ۵۵۳؛ مصوب ۱۳۶۸/۰۱/۲۰ با اصلاحات و الحاقات اخیر. برای مقررات فنی و آیین‌نامه‌های تخصصی با سازمان انرژی اتمی و منبع رسمی مقابله شود.",
+        "tags": ("حفاظت در برابر اشعه", "پرتو", "سازمان انرژی اتمی", "ایمنی پزشکی", "پرتوگیری"),
+    },
+    {
+        "ref": "QPRP-1365-925",
+        "title": "قانون تعیین حدود وظایف و اختیارات و مسئولیت‌های ریاست جمهوری اسلامی ایران",
+        "short": "قانون وظایف و اختیارات ریاست جمهوری",
+        "source_file": "user_submission_presidential_powers_925.md",
+        "date": "1986", "authority": "مجلس شورای اسلامی", "type_code": "law", "status_code": "amended", "parser": "article",
+        "topic": "حقوق عمومی و اداری",
+        "notes": "متن ۱۹ ماده‌ای ارسالی کاربر از صفحه ۹۲۵؛ مصوب ۱۳۶۵/۰۸/۲۲ با اصلاحات و الحاقات اخیر. بخشی از عناوین متن ناظر به ساختار پیش از اصلاحات قانون اساسی است و باید با وضعیت حقوقی جاری تطبیق شود.",
+        "tags": ("ریاست جمهوری", "قانون اساسی", "قوه مجریه", "مسؤولیت رئیس جمهور", "نهاد ریاست جمهوری"),
+    },
+    {
+        "ref": "QPOL-1395-53",
+        "title": "قانون جرم سیاسی",
+        "short": "قانون جرم سیاسی",
+        "source_file": "user_submission_political_crime_law_53.md",
+        "date": "2016", "authority": "مجلس شورای اسلامی", "type_code": "law", "status_code": "in_force", "parser": "article",
+        "topic": "حقوق کیفری",
+        "notes": "متن ۶ ماده‌ای ارسالی کاربر از صفحه ۵۳؛ مصوب ۱۳۹۵/۰۲/۲۰. به بخشنامه اجرای قانون جرم سیاسی با کد `CIR-POL-730-1399` پیوند داده شده است.",
+        "tags": ("جرم سیاسی", "حقوق متهم", "هیأت منصفه", "آیین دادرسی کیفری"),
+    },
 ]
 
 
@@ -402,14 +452,19 @@ def parse_bulletin(path: Path) -> list[dict]:
 def main() -> None:
     documents = []
     for doc in DOCS:
-        path = CACHE / doc["source_file"]
-        rows = parse_bulletin(path) if doc["parser"] == "bulletin" else parse_articles(path)
+        source_names = tuple(doc.get("source_files", (doc.get("source_file"),)))
+        paths = [CACHE / name for name in source_names if name]
+        rows = []
+        for path in paths:
+            rows.extend(parse_bulletin(path) if doc["parser"] == "bulletin" else parse_articles(path))
         if not rows:
-            raise SystemExit(f"empty submission: {path}")
+            raise SystemExit(f"empty submission: {paths}")
         item = dict(doc)
         item.pop("parser")
-        item["source_url"] = next((line.split("منبع:", 1)[1].strip() for line in path.read_text(encoding="utf-8").splitlines() if line.startswith("- منبع:")), "")
-        item["source_path"] = str(path.relative_to(ROOT)).replace("\\", "/")
+        for index, row in enumerate(rows, 1):
+            row["article_key_suffix"] = f"a{index:03d}"
+        item["source_url"] = next((line.split("منبع:", 1)[1].strip() for line in paths[0].read_text(encoding="utf-8").splitlines() if line.startswith("- منبع:")), "")
+        item["source_path"] = ", ".join(str(path.relative_to(ROOT)).replace("\\", "/") for path in paths)
         item["article_count"] = len(rows)
         item["rows"] = rows
         documents.append(item)

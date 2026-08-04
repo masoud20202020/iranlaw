@@ -85,6 +85,21 @@ def add_rel(conn, from_ref, to_ref, relation_type, description):
     add_relation(conn, a, relation_type, b, description=description)
 
 
+def register_existing_sources(conn):
+    additions = {
+        "QJR-1388": "منبع مکمل ارسالی کاربر: https://www.novinlaw.ir/rules/legals/%D9%82%D9%88%D8%A7%D9%86%DB%8C%D9%86-%D9%88-%D9%85%D9%82%D8%B1%D8%B1%D8%A7%D8%AA/show/32؛ متن موجود QJR-1388 حفظ شد و duplicate ساخته نشد.",
+        "QHBJM-1346": "منبع مکمل ارسالی کاربر: https://www.novinlaw.ir/rules/legals/%D9%82%D9%88%D8%A7%D9%86%DB%8C%D9%86-%D9%88-%D9%85%D9%82%D8%B1%D8%B1%D8%A7%D8%AA/show/490؛ متن موجود QHBJM-1346 حفظ شد و duplicate ساخته نشد.",
+    }
+    for ref, addition in additions.items():
+        row = conn.execute("SELECT id, notes FROM documents WHERE reference_code=?", (ref,)).fetchone()
+        if not row:
+            continue
+        notes = row["notes"] or ""
+        if addition not in notes:
+            separator = " " if notes and not notes.endswith(" ") else ""
+            conn.execute("UPDATE documents SET notes=? WHERE id=?", (notes + separator + addition, row["id"]))
+
+
 def main():
     conn = get_connection()
     try:
@@ -128,6 +143,14 @@ def main():
         add_rel(conn, "QBRF-1367-41", "QADK-1392", "cites", "قانون تشدید مجازات ارتشاء، اختلاس و کلاهبرداری با صلاحیت و رسیدگی کیفری آیین دادرسی کیفری ارتباط دارد.")
         add_rel(conn, "QUCB-1384-435", "QSH-1334", "cites", "قانون تعاریف محدوده و حریم شهر، روستا و شهرک، قواعد صلاحیت و وظایف شهرداری را در کنار قانون شهرداری تکمیل می‌کند.")
         add_rel(conn, "QUCB-1384-435", "QDPSH-1401", "cites", "قانون محدوده و حریم شهر و روستا با قانون درآمد پایدار شهرداری‌ها و دهیاری‌ها ارتباط موضوعی دارد.")
+        add_rel(conn, "AIGTE-1373-817", "QGTE-1367-816", "implements", "آیین‌نامه اجرایی سازمان تعزیرات حکومتی، تشکیلات و نحوه رسیدگی قانون تعزیرات حکومتی را تنظیم می‌کند.")
+        add_rel(conn, "QGTE-1367-816", "QADK-1392", "cites", "قانون تعزیرات حکومتی در مواد مربوط به رسیدگی و کشف تخلف به قواعد آیین دادرسی کیفری ارجاع می‌دهد.")
+        add_rel(conn, "QGTE-1367-816", "QHG-1367-72", "cites", "قانون تعزیرات حکومتی با مقررات احتکار و گرانفروشی قانون خاص سال ۱۳۶۷ ارتباط موضوعی دارد.")
+        add_rel(conn, "QAIR-1368-553", "QMA-1392", "cites", "قانون حفاظت در برابر اشعه، مجازات‌های کیفری را با ارجاع به قانون مجازات اسلامی تعیین می‌کند.")
+        add_rel(conn, "QPRP-1365-925", "QA-1358", "cites", "قانون وظایف و اختیارات ریاست جمهوری در اجرای اصول قانون اساسی تنظیم شده است.")
+        add_rel(conn, "QPOL-1395-53", "QADK-1392", "implements", "قانون جرم سیاسی، رسیدگی و مقررات هیأت منصفه را به قانون آیین دادرسی کیفری ارجاع می‌دهد.")
+        add_rel(conn, "QPOL-1395-53", "CIR-POL-730-1399", "cites", "بخشنامه اجرای قانون جرم سیاسی به این قانون و تشخیص سیاسی بودن اتهام ارجاع دارد.")
+        register_existing_sources(conn)
         conn.commit()
         print(f"loaded user submissions: {len(DOCUMENTS)} documents / {sum(d['article_count'] for d in DOCUMENTS)} articles")
     except Exception:
