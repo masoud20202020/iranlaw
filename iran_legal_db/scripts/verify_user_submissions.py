@@ -40,6 +40,11 @@ if __name__ == "__main__":
         "QAIR-1368-553": 23,
         "QPRP-1365-925": 19,
         "QPOL-1395-53": 6,
+        "QEX-1339-226": 27,
+        "QOIL-1336-77": 19,
+        "QEXAM-1384-519": 13,
+        "QLPR-1399-31": 15,
+        "QHT-1383-56": 8,
     }
     conn = get_connection()
     try:
@@ -54,6 +59,6 @@ if __name__ == "__main__":
             require(row["sourced"] == count, f"missing NovinLaw source notes for {ref}")
         require("show/32" in (conn.execute("SELECT notes FROM documents WHERE reference_code='QJR-1388'").fetchone()[0] or ""), "missing existing cybercrime source registration")
         require("show/490" in (conn.execute("SELECT notes FROM documents WHERE reference_code='QHBJM-1346'").fetchone()[0] or ""), "missing existing forest-law source registration")
-        print("[OK] user_submissions new laws: 16 documents, 233 articles, source provenance; 2 existing sources deduplicated")
+        print("[OK] user_submissions new laws: 21 documents, 315 articles, source provenance; 2 existing sources deduplicated")
     finally:
         conn.close()
