@@ -89,7 +89,7 @@ def register_existing_sources(conn):
     additions = {
         "QJR-1388": "منبع مکمل ارسالی کاربر: https://www.novinlaw.ir/rules/legals/%D9%82%D9%88%D8%A7%D9%86%DB%8C%D9%86-%D9%88-%D9%85%D9%82%D8%B1%D8%B1%D8%A7%D8%AA/show/32؛ متن موجود QJR-1388 حفظ شد و duplicate ساخته نشد.",
         "QHBJM-1346": "منبع مکمل ارسالی کاربر: https://www.novinlaw.ir/rules/legals/%D9%82%D9%88%D8%A7%D9%86%DB%8C%D9%86-%D9%88-%D9%85%D9%82%D8%B1%D8%B1%D8%A7%D8%AA/show/490؛ متن موجود QHBJM-1346 حفظ شد و duplicate ساخته نشد.",
-        "QMK-1392": "منابع مکمل ارسالی کاربر: صفحات فصل‌های قانون مبارزه با قاچاق کالا و ارز در show/697 تا show/706؛ سند موجود QMK-1392 حفظ شد و duplicate ساخته نشد؛ صفحه فصل پنجم (مواد ۲۸ تا ۳۲) در پیام فعلی ارائه نشده است.",
+        "QMK-1392": "منابع مکمل ارسالی کاربر: صفحات فصل‌های قانون مبارزه با قاچاق کالا و ارز show/697، show/698، show/699، show/700، show/701، show/702، show/703، show/704، show/705 و show/706؛ سند موجود QMK-1392 حفظ شد و duplicate ساخته نشد.",
     }
     for ref, addition in additions.items():
         row = conn.execute("SELECT id, notes FROM documents WHERE reference_code=?", (ref,)).fetchone()

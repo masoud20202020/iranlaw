@@ -59,7 +59,8 @@ if __name__ == "__main__":
             require(row["sourced"] == count, f"missing NovinLaw source notes for {ref}")
         require("show/32" in (conn.execute("SELECT notes FROM documents WHERE reference_code='QJR-1388'").fetchone()[0] or ""), "missing existing cybercrime source registration")
         require("show/490" in (conn.execute("SELECT notes FROM documents WHERE reference_code='QHBJM-1346'").fetchone()[0] or ""), "missing existing forest-law source registration")
-        require("show/697" in (conn.execute("SELECT notes FROM documents WHERE reference_code='QMK-1392'").fetchone()[0] or ""), "missing existing smuggling-law source registration")
+        qmk_notes = conn.execute("SELECT notes FROM documents WHERE reference_code='QMK-1392'").fetchone()[0] or ""
+        require("show/697" in qmk_notes and "show/701" in qmk_notes and "show/706" in qmk_notes, "missing existing smuggling-law source registration")
         print("[OK] user_submissions new laws: 21 documents, 315 articles, source provenance; 3 existing sources deduplicated")
     finally:
         conn.close()
