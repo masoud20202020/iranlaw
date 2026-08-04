@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Load the five legal texts pasted by the user in chat."""
+"""Load the legal texts pasted by the user in chat."""
 from __future__ import annotations
 
 import sys
@@ -42,7 +42,7 @@ def upsert(conn, doc):
            ratification_date=?, effective_date=?, notes=? WHERE id=?""",
         (doc["title"], doc["short"], one(conn, "SELECT id FROM document_types WHERE code=?", doc["type_code"]),
          authority_id, one(conn, "SELECT id FROM statuses WHERE code=?", doc["status_code"]),
-         doc["date"], doc["date"], doc["notes"], did),
+         doc["date"], doc.get("effective_date", doc["date"]), doc["notes"], did),
     )
     return did
 
@@ -61,7 +61,7 @@ def clear_owned(conn, did):
 def load_one(conn, doc):
     did = upsert(conn, doc)
     clear_owned(conn, did)
-    topic = "حقوق کیفری" if doc["ref"] != "AIWET-1397-636" else "حقوق محیط زیست"
+    topic = doc.get("topic") or ("حقوق کیفری" if doc["ref"] != "AIWET-1397-636" else "حقوق محیط زیست")
     conn.execute("INSERT OR IGNORE INTO topics(name_fa) VALUES(?)", (topic,))
     link_document_topic(conn, did, topic)
     for tag in sorted(set(("متن ارسالی کاربر",) + tuple(doc.get("tags", ())))):
@@ -70,7 +70,7 @@ def load_one(conn, doc):
     for row in doc["rows"]:
         add_article(
             conn, did, article_no=row["article_no"], article_key=f"{doc['ref']}:{row['article_key_suffix']}",
-            version_no=1, is_current=1, effective_date=doc["date"], text=row["text"],
+            version_no=1, is_current=1, effective_date=doc.get("effective_date", doc["date"]), text=row["text"],
             source_note=source, notes="متن مستقیماً توسط کاربر ارسال شده است؛ برای استناد رسمی با منبع رسمی مقابله شود.",
         )
     return did
@@ -114,6 +114,12 @@ def main():
         add_rel(conn, "DPRISON-726-1398", "QADK-1392-EXEC", "implements", "دستورالعمل کاهش جمعیت کیفری بخشی از وظایف اجرای احکام کیفری و زندان‌ها را تنظیم می‌کند.")
         add_rel(conn, "DDELAY-725-1385", "QADK-1392", "cites", "دستورالعمل رفع اطاله دادرسی امور کیفری به مقررات آیین دادرسی کیفری و اجرای احکام ارجاع دارد.")
         add_rel(conn, "AICR-852-1395", "AICR-774-1395", "cites", "نسخه صفحه ۸۵۲ با شیوه استقرار معاونت اجرای احکام کیفری صفحه ۷۷۴ هم‌موضوع و نسخه منبعی موازی است.")
+        add_rel(conn, "QPCP-1390-48", "QADK-1392", "cites", "قانون پیشگیری از وقوع جرم با سازوکارهای پیشگیری کیفری و وظایف مقرر در آیین دادرسی کیفری ارتباط دارد.")
+        add_rel(conn, "QSID-1370-217", "QSA-1355", "cites", "قانون جرائم اسناد سجلی و شناسنامه، ضمانت اجراهای کیفری مرتبط با قانون ثبت احوال را تعیین می‌کند.")
+        add_rel(conn, "QACID-1398-44", "QMA-1392", "cites", "قانون تشدید مجازات اسیدپاشی به مقررات قصاص، دیه و تعزیرات قانون مجازات اسلامی ارجاع می‌دهد.")
+        add_rel(conn, "QESP-1404-86", "QMA-1392", "cites", "قانون تشدید مجازات جاسوسی و همکاری با کشورهای متخاصم به درجات تعزیر و مواد قانون مجازات اسلامی ارجاع می‌دهد.")
+        add_rel(conn, "QESP-1404-86", "QADK-1392", "cites", "قانون جدید جرائم امنیتی، رسیدگی کیفری و قرارهای تأمین را در چهارچوب آیین دادرسی کیفری تنظیم می‌کند.")
+        add_rel(conn, "QCBN-1368-85", "QMA-1392", "cites", "قانون تشدید مجازات جعل و توزیع اسکناس مجعول به مقررات مجازات‌های تعزیری و جعل ارجاع تاریخی دارد.")
         conn.commit()
         print(f"loaded user submissions: {len(DOCUMENTS)} documents / {sum(d['article_count'] for d in DOCUMENTS)} articles")
     except Exception:
