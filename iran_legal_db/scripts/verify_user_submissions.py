@@ -29,6 +29,12 @@ if __name__ == "__main__":
         "QACID-1398-44": 7,
         "QESP-1404-86": 9,
         "QCBN-1368-85": 1,
+        "QKID-1353-66": 12,
+        "AIPIGE-1354-821": 7,
+        "QPIGE-1351-820": 1,
+        "QHG-1367-72": 7,
+        "QBRF-1367-41": 8,
+        "QUCB-1384-435": 12,
     }
     conn = get_connection()
     try:
@@ -41,6 +47,6 @@ if __name__ == "__main__":
             ).fetchone()
             require(row["n"] == count, f"count mismatch for {ref}: {row['n']} != {count}")
             require(row["sourced"] == count, f"missing NovinLaw source notes for {ref}")
-        print("[OK] user_submissions new laws: 5 documents, 46 articles, source provenance")
+        print("[OK] user_submissions new laws: 11 documents, 93 articles, source provenance")
     finally:
         conn.close()
