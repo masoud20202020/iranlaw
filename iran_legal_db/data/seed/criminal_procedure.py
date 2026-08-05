@@ -228,3 +228,19 @@ def build_criminal():
 
 
 CRIMINAL_PROCEDURE_ALL = build_criminal()
+
+# The first 317 articles were supplied from the sectioned NovinLaw source and
+# are kept in a separate generated payload so the legacy synthetic fallback
+# above remains visible for audit/history but can never overwrite source-backed
+# text during a normal reload.
+try:
+    from criminal_procedure_user_source import ARTICLES_1_317
+except ImportError:  # pragma: no cover - allows the legacy seed to be inspected alone
+    ARTICLES_1_317 = ()
+
+if ARTICLES_1_317:
+    _source_articles = dict(ARTICLES_1_317)
+    CRIMINAL_PROCEDURE_ALL = [
+        (number, _source_articles.get(number, text) if number <= 317 else text)
+        for number, text in CRIMINAL_PROCEDURE_ALL
+    ]

@@ -15,3 +15,24 @@ venv/
 .git-credentials
 credentials.json
 secrets.*
+
+# Uploaded HTML/TXT source trees are archived in data/archive/ and restored locally
+# only when a seed rebuild is needed.
+/data/آموزش_و_پرورش/
+/data/اراضی_و_املاک/
+/data/ایثارگران/
+/data/بین_الملل/
+/data/ثبت_و_اسناد/
+/data/حقوقی/
+/data/حمل_و_نقل/
+/data/خانواده/
+/data/داوری/
+/data/شهر_و_شهرداری/
+/data/مالکیت_معنوی/
+/data/مالی/
+/data/مالیاتی/
+/data/محیط_زیست/
+/data/موجر_و_مستأجر/
+/data/نظامی_و_انتظامی/
+/data/ورزشی/
+/data/وکالت/
